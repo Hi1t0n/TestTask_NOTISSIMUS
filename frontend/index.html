@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Поиск пользователей</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        #search-box {
+            margin-bottom: 10px;
+        }
+        #results {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        #results div {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        #results.error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Поиск пользователей</h1>
+
+<div id="search-box">
+    <label for="search-input">Введите часть логина:</label>
+    <input type="text" id="search-input">
+</div>
+
+<div id="results"></div>
+
+<h2>Добавить пользователя</h2>
+
+<div id="add-user-form">
+    <label for="add-user-input">Введите логин:</label>
+    <input type="text" id="add-user-input">
+    <button id="add-user-button">Добавить</button>
+</div>
+
+<script>
+    const searchInput = document.getElementById('search-input');
+    const resultsDiv = document.getElementById('results');
+    const addUserInput = document.getElementById('add-user-input');
+    const addUserButton = document.getElementById('add-user-button');
+
+    searchInput.addEventListener('input', async () => {
+        const searchTerm = searchInput.value;
+
+        if (searchTerm.length > 0) {
+            try {
+                const response = await fetch(`http://localhost:5028/api/users/${searchTerm}`);
+
+                if (response.ok) {
+                    const data = await response.json();
+
+                    resultsDiv.innerHTML = '';
+                    resultsDiv.classList.remove('error');
+
+                    data.forEach(user => {
+                        const userDiv = document.createElement('div');
+                        userDiv.textContent = `ID: ${user.id}, Логин: ${user.login}`;
+                        resultsDiv.appendChild(userDiv);
+                    });
+                } else {
+                    const errorMessage = await response.text();
+                    resultsDiv.innerHTML = `<div class="error">${errorMessage}</div>`;
+                    resultsDiv.classList.add('error');
+                }
+            } catch (error) {
+                console.error('Ошибка при получении данных:', error);
+                resultsDiv.innerHTML = '<div class="error">Ошибка при получении данных</div>';
+                resultsDiv.classList.add('error');
+            }
+        } else {
+            resultsDiv.innerHTML = '';
+            resultsDiv.classList.remove('error');
+        }
+    });
+
+    addUserButton.addEventListener('click', async () => {
+        const login = addUserInput.value;
+
+        if (login.trim() === '') {
+            alert('Введите логин!');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:5028/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ login })
+            });
+
+            if (response.ok) {
+                alert('Пользователь добавлен!');
+                addUserInput.value = '';
+            } else {
+                const errorMessage = await response.text();
+                alert(errorMessage);
+            }
+        } catch (error) {
+            console.error('Ошибка при добавлении пользователя:', error);
+            alert('Ошибка при добавлении пользователя.');
+        }
+    });
+</script>
+</body>
+</html>
