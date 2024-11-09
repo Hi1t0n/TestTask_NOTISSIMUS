@@ -29,6 +29,12 @@ namespace Server.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("Login")
+                        .IsUnique();
+
                     b.ToTable("Users", (string)null);
                 });
 #pragma warning restore 612, 618

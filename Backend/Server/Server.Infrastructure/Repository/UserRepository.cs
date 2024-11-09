@@ -6,6 +6,9 @@ using Server.Infrastructure.Context;
 
 namespace Server.Infrastructure.Repository;
 
+/// <summary>
+/// Реализация интерфейск <see cref="IUserRepository"/>
+/// </summary>
 public class UserRepository : IUserRepository
 {
     private readonly ApplicationDbContext _context;
@@ -15,7 +18,8 @@ public class UserRepository : IUserRepository
         _context = context;
     }
     
-    public async Task<List<UserResponse>?> GetUsersByPartLoginAsync(string loginPart)
+    ///<inheritdoc />
+    public async Task<List<UserResponse>?> GetUsersByPartLoginAsync(string loginPart, CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(loginPart))
         {
@@ -25,13 +29,14 @@ public class UserRepository : IUserRepository
         var users = await _context.Users
             .Where(x=> x.Login.Contains(loginPart))
             .Select(x=> new UserResponse(x.Id, x.Login))
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
         return users;
     }
-
-    public async Task<User?> AddUserAsync(string login)
+    
+    ///<inheritdoc />
+    public async Task<User?> AddUserAsync(string login, CancellationToken cancellationToken)
     {
-        if (await _context.Users.AnyAsync(x=> x.Login == login))
+        if (await _context.Users.AnyAsync(x=> x.Login == login, cancellationToken))
         {
             return null;
         }
@@ -42,8 +47,8 @@ public class UserRepository : IUserRepository
             Login = login
         };
 
-        await _context.AddAsync(user);
-        await _context.SaveChangesAsync();
+        await _context.AddAsync(user, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return user;
     }

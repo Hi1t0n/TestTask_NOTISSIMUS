@@ -1,0 +1,12 @@
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\bin\Debug\net8.0\Server.Domain.deps.json
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\bin\Debug\net8.0\Server.Domain.dll
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\bin\Debug\net8.0\Server.Domain.pdb
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\obj\Debug\net8.0\Server.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\obj\Debug\net8.0\Server.Domain.AssemblyInfoInputs.cache
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\obj\Debug\net8.0\Server.Domain.AssemblyInfo.cs
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\obj\Debug\net8.0\Server.Domain.csproj.CoreCompileInputs.cache
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\obj\Debug\net8.0\Server.Domain.sourcelink.json
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\obj\Debug\net8.0\Server.Domain.dll
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\obj\Debug\net8.0\refint\Server.Domain.dll
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\obj\Debug\net8.0\Server.Domain.pdb
+C:\Code\TestTask\NOTISSIMUS\Backend\Server\Server.Domain\obj\Debug\net8.0\ref\Server.Domain.dll
